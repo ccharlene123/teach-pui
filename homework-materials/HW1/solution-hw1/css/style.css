@@ -8,6 +8,20 @@
     margin-right: auto;
 }
 
+.highlight {
+    font-size: 5pt;
+    text-align: center;
+    box-sizing: border-box;
+    width: 105px;
+    background-color: yellow;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a { 
+    text-decoration: none; 
+}
+
 h2 {
     font-size: 10pt;
     text-align: center;
@@ -16,6 +30,11 @@ h2 {
 body {
     font-family: Roboto, Arial, Helvetica, sans-serif;
     font-size: 8pt;
+    margin-bottom: 80px;
+}
+
+.product-thumbnails {
+    border: 3px solid #555;
 }
 
 .product {
@@ -28,7 +47,7 @@ body {
 
     background-color: #ffffff;
     text-align: left;
-    padding: 8px;
+    padding: 4px;
 }
 
 .product:hover {
@@ -37,10 +56,6 @@ body {
 
 .menu {
     text-align: center;
-}
-
-.menu:hover {
-    background-color:yellow;
 }
 
 .logo {
