@@ -5,13 +5,23 @@ body {
   background-color: rgb(32, 32, 32);
 }
 .notecard {
-    background-color: rgb(59, 91, 122);
+    background-color: rgb(78, 74, 153);
     width: 450px;
     height: 150px;
     border-radius: 8px;
     margin: 150px auto 0px auto;
     padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px; gives a gap between notecard left and right*/
   }
+
+.notecard-top {
+  display: flex;
+  flex: 1 0 auto;
+}
+
 
 .note-title {
   color: rgb(228, 228, 228);
@@ -25,4 +35,5 @@ body {
   width: 70px;
   height: 70px;
   border-radius: 5px;
+  margin-right: 20px;
 }
