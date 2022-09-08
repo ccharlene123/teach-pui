@@ -1,11 +1,19 @@
-.menu {
+.nav, .highlight {
     font-size: 5pt;
     text-align: center;
     box-sizing: border-box;
     width: 105px;
-    background-color: none;
     margin-left: auto;
     margin-right: auto;
+}
+
+.highlight {
+    background: yellow;
+}
+
+hr {
+    height: 2px;
+    background: black;
 }
 
 body {
@@ -55,4 +63,14 @@ p {
 select {
     border: 2px solid black;
     padding: 5px 10px 5px 10px;
+}
+
+.product-thumbnails {
+    border: 3px solid #555;
+}
+
+button {
+    border: 2px solid black;
+    padding: 5px 20px 5px 20px;
+    background: yellow;
 }

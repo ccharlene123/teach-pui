@@ -1,0 +1,65 @@
+.nav, .highlight {
+    font-size: 5pt;
+    text-align: center;
+    box-sizing: border-box;
+    width: 105px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.highlight {
+    background-color: yellow;
+}
+
+.product-thumbnails {
+    margin-top: 30px;
+}
+
+.cart {
+    margin: auto;
+    width: 250px;
+    text-align: center;
+}
+
+.remove {
+    font-size: 9px;
+    margin-bottom: 30px;
+}
+
+a { 
+    text-decoration: none; 
+}
+
+body {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    margin-bottom: 80px;
+}
+
+hr {
+    height: 2px;
+    background: black;
+}
+
+.product {
+    line-height: 30%;
+}
+
+.price{
+    font-size: 16px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.bottom-line {
+    height: 2px;
+    background: black;
+    width: 300px;
+}
+
+button {
+    text-align: center;
+    border: 2px solid black;
+    padding: 5px 20px 5px 20px;
+    background: yellow;
+}
