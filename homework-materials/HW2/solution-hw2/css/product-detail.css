@@ -1,19 +1,46 @@
-.nav, .highlight {
-    font-size: 5pt;
+hr{
+    border-top: 3px solid black;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo {
+    margin-left: 15px;
+    flex-shrink: 2;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: flex-start;
+    flex: 0 1 auto;
+
+}
+
+.right {
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.nav {
+    font-size: 6pt;
     text-align: center;
     box-sizing: border-box;
     width: 105px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
     margin-left: auto;
-    margin-right: auto;
+    margin-top: 30px;
 }
 
 .highlight {
-    background: yellow;
-}
-
-hr {
-    height: 2px;
-    background: black;
+    text-align: center;
+    box-sizing: border-box;
+    width: 105px;
+    background-color: yellow;
 }
 
 body {
@@ -24,16 +51,24 @@ body {
 
 .product {
     margin: auto;
-    width: 200px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    align-items: flex-start;
+    
 }
 
 .product-image {
     margin: auto;
-    width: 300px;
+    flex: 0 1 auto
 }
 
 h2 {
+    font-size: 16pt;
     text-align: center;
+    display: flex;
+    justify-content: flex-start;
 }
 
 a { 
@@ -58,6 +93,7 @@ a {
 
 p {
     margin-right: 30px;
+    font-size: 14pt;
 }
 
 select {
@@ -73,4 +109,8 @@ button {
     border: 2px solid black;
     padding: 5px 20px 5px 20px;
     background: yellow;
+}
+
+.main {
+    display: flex;
 }
