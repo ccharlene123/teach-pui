@@ -6,6 +6,7 @@
     
         <title>Original Cinnamon Roll</title>
         <link rel="stylesheet" href="../css/style.css">
+        <script defer src="../js/app.js"></script>
 
     </head>
 
@@ -46,23 +47,15 @@
                 <p>Customize our delicious, hand-made cinnamon roll to your liking!</p>
 
                 <p>Glazing:</p>
-                <select>
-                    <option value="Keep original">Keep original</option>
-                    <option value="Sugar milk">Sugar milk</option>
-                    <option value="Vanilla milk">Vanilla milk</option>
-                    <option value="Double chocolate">Double chocolate</option>
+                <select id="glazing-options">
                 </select>
 
                 <p>Pack size:</p>
-                <select>
-                    <option value="1">1</option>
-                    <option value="3">3</option>
-                    <option value="6">6</option>
-                    <option value="12">12</option>
+                <select id="pack-size">
                 </select>
 
                 <div class="bottom-half">
-                    <p><b>$2.49</b></p>
+                    <p id="price">$2.49</p>
                     <div class="add-to-cart">
                         <button type="button">Add to cart</button>
                     </div>

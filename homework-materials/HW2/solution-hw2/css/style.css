@@ -216,3 +216,7 @@ button {
 .add-to-cart {
     margin-left: 20px;
 }
+
+#price {
+    font-weight: bold;
+}
