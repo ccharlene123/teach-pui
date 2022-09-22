@@ -82,6 +82,14 @@ body {
     gap: 50px;
 }
 
+.product-image {
+    margin: auto;
+    border: 3px solid #555;
+    display: flex;
+    flex: 0 1 auto;
+    width: 500px;
+}
+
 .product {
     width: 256px;
     margin-top: 15px;
@@ -92,3 +100,119 @@ body {
 .product:hover {
     width: 256px;
     background-color: yellow;
+}
+
+.main {
+    display: flex;
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+.main-cart {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.product-one {
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+.product-two {
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+.img-remove{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.remove {
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.text {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-basis: 1000px;
+}
+
+.price{
+    font-size: 18px;
+    text-align: center;
+    flex-basis: 300px;
+}
+
+.bottom-line {
+    height: 2px;
+    background: black;
+    display: flex;
+    width: 1000px;
+    flex-basis: 1000px;
+}
+
+.bottom {
+    display: flex;
+    flex-basis: 600px;
+    justify-content: flex-end;
+}
+
+.total{
+    font-size: 18px;
+    text-align: center;
+    flex-basis: 1100px;
+}
+
+.total-price{
+    font-size: 18px;
+    text-align: center;
+    flex-basis: 200px;
+}
+
+.checkout{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 60px;
+    margin-top: 20px;
+}
+
+.product-details {
+    margin: auto;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    align-items: flex-start;
+}
+
+.bottom-half {
+    margin-top: 40px;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: space-around;
+    align-items: center;
+}
+
+select {
+    border: 2px solid black;
+    padding: 5px 10px 5px 10px;
+}
+
+button {
+    border: 2px solid black;
+    padding: 5px 20px 5px 20px;
+    background: yellow;
+}
+
+.add-to-cart {
+    margin-left: 20px;
+}
