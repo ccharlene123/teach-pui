@@ -55,9 +55,10 @@ class App extends Component {
       
       selectedNoteIndex: null,
       editorNoteTitle: "",
+      editorNoteCategory: "",
       editorNoteBody: "",
       isEditing: false,
-      filterCategory: null, 
+      filterCategory: "All", 
     }
   }
 
@@ -73,6 +74,7 @@ class App extends Component {
       ...prevState,
       selectedNoteIndex: noteIndex,
       editorNoteTitle: this.state.notecardData[noteIndex].noteTitle,
+      editorNoteCategory: this.state.notecardData[noteIndex].noteCategory,
       editorNoteBody: this.state.notecardData[noteIndex].noteBody,
       isEditing: true,
     }))
@@ -120,11 +122,13 @@ class App extends Component {
     if (this.state.selectedNoteIndex != null) {
       let newNotecardData = this.state.notecardData
       newNotecardData[this.state.selectedNoteIndex].noteTitle = this.state.editorNoteTitle;
+      newNotecardData[this.state.selectedNoteIndex].noteCategory = this.state.editorNoteCategory;
       newNotecardData[this.state.selectedNoteIndex].noteBody = this.state.editorNoteBody;
       this.setState(prevState => ({
         ...prevState,
         notecardData: newNotecardData,
         editorNoteTitle: "",
+        editorNoteCategory: "",
         editorNoteBody: "",
         selectedNoteIndex: null,
         isEditing: false,
@@ -137,6 +141,14 @@ class App extends Component {
     this.setState(prevState => ({
       ...prevState,
       editorNoteTitle: newTitle
+    }))
+  };
+
+  handleCategoryChange = (event) => {
+    const newCategory= event.target.value;
+    this.setState(prevState => ({
+      ...prevState,
+      editorNoteCategory: newCategory
     }))
   };
 
@@ -166,7 +178,7 @@ class App extends Component {
           <div id="notecard-list">
             {this.state.notecardData.map(
               (notecard, idx) => {
-                if ((this.state.filterCategory == null) || 
+                if ((this.state.filterCategory == "All") || 
                 (notecard.noteCategory.includes(this.state.filterCategory))) {
                   return <Notecard 
                   key={idx}
@@ -195,6 +207,9 @@ class App extends Component {
                   <form>
                     <input id="note-editor-title" placeholder="Title of Your Note..."
                       name="dummy" maxLength="50" onChange={this.handleTitleChange} value={this.state.editorNoteTitle}>
+                    </input>
+                    <input placeholder="Category of Your Note..."
+                      name="dummy" maxLength="50" onChange={this.handleCategoryChange} value={this.state.editorNoteCategory}>
                     </input>
                     <textarea id="note-editor-body" placeholder="Body of Your Note..."
                       rows="15" maxLength="1000" onChange={this.handleBodyChange} value={this.state.editorNoteBody}>

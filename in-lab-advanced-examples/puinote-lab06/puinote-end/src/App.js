@@ -3,62 +3,31 @@ import logo from './logo.svg';
 import './App.css';
 import Notecard from './Notecard';
 import HookExample from './HookExample';
+import CategoryList from './CategoryList';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notecardData: [
-        {
-          imageURL: "assets/warhol-frog.png",
-          noteTitle: "This is the First Note",
-          noteBody: "Here is some body text for the first note.",
-          noteCategory: "Work",
-          noteFooter: "Sep 1 2022, 10:25"
-        },
-        {
-          imageURL: "assets/warhol-orangutan.png" ,
-          noteTitle: "This is the Second Note" ,
-          noteBody: "And here is some body text for the second note! What could be next?",
-          noteCategory: "Leisure",
-          noteFooter: "Sep 1 2022, 10:25"
-        },
-        {
-          imageURL: "assets/warhol-eagle.png" ,
-          noteTitle: "This is the Third Note" ,
-          noteBody: "Yep, you guessed it, here is some body text for the third note." ,
-          noteCategory: "Work",
-          noteFooter: "Sep 1 2022, 10:25"
-        },
-        {
-          imageURL: "assets/warhol-frog.png",
-          noteTitle: "This is the First Note",
-          noteBody: "Here is some body text for the first note.",
-          noteCategory: "Work",
-          noteFooter: "Sep 1 2022, 10:25"
-        },
-        {
-          imageURL: "assets/warhol-orangutan.png" ,
-          noteTitle: "This is the Second Note" ,
-          noteBody: "And here is some body text for the second note! What could be next?",
-          noteCategory: "Leisure",
-          noteFooter: "Sep 1 2022, 10:25"
-        },
-        {
-          imageURL: "assets/warhol-eagle.png" ,
-          noteTitle: "This is the Third Note" ,
-          noteBody: "Yep, you guessed it, here is some body text for the third note." ,
-          noteCategory: "Work",
-          noteFooter: "Sep 1 2022, 10:25"
-        },        
-      ],
-      
+      categories: JSON.parse(localStorage.getItem("categoryList")) || [],
+      notecardData: JSON.parse(localStorage.getItem("notecardData")) || [],
       selectedNoteIndex: null,
       editorNoteTitle: "",
+      editorNoteCategory: "",
       editorNoteBody: "",
       isEditing: false,
-      filterCategory: null, 
+      filterCategory: "All", 
     }
+  }
+
+  componentDidMount() {
+    // called when the component is first mounted
+    localStorage.setItem("notecardData", JSON.stringify(this.state.notecardData));
+  }
+
+  componentDidUpdate() {
+    // called when there are updates in the component e.g., state changes
+    localStorage.setItem("notecardData", JSON.stringify(this.state.notecardData));
   }
 
   filterButtonHandler = (category) => {
@@ -73,6 +42,7 @@ class App extends Component {
       ...prevState,
       selectedNoteIndex: noteIndex,
       editorNoteTitle: this.state.notecardData[noteIndex].noteTitle,
+      editorNoteCategory: this.state.notecardData[noteIndex].noteCategory.name,
       editorNoteBody: this.state.notecardData[noteIndex].noteBody,
       isEditing: true,
     }))
@@ -85,46 +55,43 @@ class App extends Component {
       ...prevState,
       notecardData: newNotecardData
     }))
-    // let numberlist = [1, 2, 3];
-    // numberlist.splice(0, 1);
-    // // [2, 3]
-    // numberlist.splice(0, 2);
-    // // [3]
-    // numberlist.splice(1, 1);
-    // // [1, 3]
-    // numberlist.splice(1, 2);
-    // // [1]
-
-    // numberlist.splice(0, 1, 4);
-    // // [4, 2, 3]
   }
 
   addNote = () => {
-    let newNotecardItem = {
-      imageURL: "assets/warhol-butterfly.png",
-      noteTitle: "This is a brand new Note",
-      noteBody: "Here is some body text for the new note.",
-      noteCategory: "Leisure",
-      noteFooter: "Sep 1 2022, 10:25"
-    }
+    fetch("https://api.thecatapi.com/v1/images/search")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        let newNotecardItem = {
+          imageURL: result[0]["url"],
+          noteTitle: "This is a brand new Note",
+          noteBody: "Here is some body text for the new note.",
+          noteCategory: this.state.categories[0] || "",
+          noteFooter: "Sep 1 2022, 10:25"
+        }
 
-    let newNotecardData = this.state.notecardData
-    newNotecardData.push(newNotecardItem)
-    this.setState(prevState => ({
-      ...prevState,
-      notecardData: newNotecardData
-    }))
+        let newNotecardData = this.state.notecardData
+        newNotecardData.push(newNotecardItem)
+        this.setState(prevState => ({
+          ...prevState,
+          notecardData: newNotecardData
+        }))
+      }
+    )
   }
 
   submitNote = () => {
     if (this.state.selectedNoteIndex != null) {
       let newNotecardData = this.state.notecardData
       newNotecardData[this.state.selectedNoteIndex].noteTitle = this.state.editorNoteTitle;
+      const categoryObj = this.state.categories.find((category) => category.name == this.state.editorNoteCategory);
+      newNotecardData[this.state.selectedNoteIndex].noteCategory = categoryObj
       newNotecardData[this.state.selectedNoteIndex].noteBody = this.state.editorNoteBody;
       this.setState(prevState => ({
         ...prevState,
         notecardData: newNotecardData,
         editorNoteTitle: "",
+        editorNoteCategory: "",
         editorNoteBody: "",
         selectedNoteIndex: null,
         isEditing: false,
@@ -137,6 +104,14 @@ class App extends Component {
     this.setState(prevState => ({
       ...prevState,
       editorNoteTitle: newTitle
+    }))
+  };
+
+  handleCategoryChange = (event) => {
+    const newCategory= event.target.value;
+    this.setState(prevState => ({
+      ...prevState,
+      editorNoteCategory: newCategory
     }))
   };
 
@@ -166,13 +141,13 @@ class App extends Component {
           <div id="notecard-list">
             {this.state.notecardData.map(
               (notecard, idx) => {
-                if ((this.state.filterCategory == null) || 
-                (notecard.noteCategory.includes(this.state.filterCategory))) {
+                if ((this.state.filterCategory == "All") || 
+                (notecard.noteCategory.name.includes(this.state.filterCategory))) {
                   return <Notecard 
                   key={idx}
                   noteIndex={idx}
                   imageURL={notecard.imageURL}
-                  noteTitle={idx < 3 ? notecard.noteTitle : notecard.noteTitle + " 2"}
+                  noteTitle={notecard.noteTitle}
                   noteBody={notecard.noteBody}
                   noteCategory={notecard.noteCategory}
                   noteFooter={notecard.noteFooter}
@@ -196,6 +171,9 @@ class App extends Component {
                     <input id="note-editor-title" placeholder="Title of Your Note..."
                       name="dummy" maxLength="50" onChange={this.handleTitleChange} value={this.state.editorNoteTitle}>
                     </input>
+                    <input placeholder="Category of Your Note..."
+                      name="dummy" maxLength="50" onChange={this.handleCategoryChange} value={this.state.editorNoteCategory}>
+                    </input>
                     <textarea id="note-editor-body" placeholder="Body of Your Note..."
                       rows="15" maxLength="1000" onChange={this.handleBodyChange} value={this.state.editorNoteBody}>
                     </textarea>
@@ -211,12 +189,10 @@ class App extends Component {
           }
           
           {/* Extra examples for filtering and adding a new note */}
-          <p>Show Category:</p>
-          <button style={buttonStyle} onClick={() => {this.filterButtonHandler("Work")}}>Work</button>
-          <button style={buttonStyle} onClick={() => {this.filterButtonHandler("Leisure")}}>Leisure</button>
-          <button style={buttonStyle} onClick={() => {this.filterButtonHandler(null)}}>All</button>
+          <CategoryList filterButtonHandler={this.filterButtonHandler}/>
           <p>Add a New Note</p>
           <button style={buttonStyle} onClick={() => {this.addNote()}}>New</button>
+
         </div>
       </div>
     );
