@@ -82,6 +82,49 @@ function deleteNote(notecard) {
 /**** EXERCISE 6 CODE BELOW ***************************************************/
 
 function submitNote() {
-  // Nothing here yet!
-  console.log("Submitted Note!")
+  let titleElement = document.querySelector('#note-editor-title'); //accesses the box
+  let title = titleElement.value; //accesses the content inside the box
+
+  let bodyElement = document.querySelector('#note-editor-body');
+  let body = bodyElement.value;
+
+  let imageElement = document.querySelector('#note-editor-image');
+  let imageURL = imageElement.src;
+
+  let notecard = addNewNote(imageURL, title, body);
+  createElement(notecard);
+
+  console.log("Submitted Note!");
+  saveToLocalStorage();
 }
+
+//convert notecard set to a string and save to local storage
+function saveToLocalStorage() {
+  let notecardArray = Array.from(notecardSet); //array.from is a static method creates a new, shallow-copied Array instance from an iterable or array-like object.
+  console.log(notecardArray); //the array
+
+  let notecardJSON = JSON.stringify(notecardArray);
+  console.log(notecardJSON); //the string of the array from above
+
+  localStorage.setItem('storedNotes', notecardJSON); //where storedNotes is the key and notecardJSON is the thing you want to save
+  //can check in the application tab to see what you saved in the local storage
+  //at this point, it will be in local storage but it wont be there when reload because you need to retrieve it
+  //call this func in submitnote so every time a note is submited it is saved
+}
+
+function retrieveFromLocalStorage() {
+  let notecardJSON = localStorage.getItem('storedNotes');
+
+  if (notecardJSON == null) {
+    return;
+  }
+
+  let notecardArray = JSON.parse(notecardJSON); //reverse stringify it using parse
+
+  for (let noteData of notecardArray) { //allows us to create instances of the notecard class, if we dont do this they will just be generic objects
+    let notecard = addNewNote(noteData.noteImageURL, noteData.noteTitle, noteData.noteBody);
+    createElement(notecard);
+  }
+}  
+
+retrieveFromLocalStorage();
